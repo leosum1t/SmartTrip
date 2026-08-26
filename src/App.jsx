@@ -1,9 +1,6 @@
-function App() {
-  return (
-    <div className="min-h-screen">
-      <h1>SmartTrip</h1>
-    </div>
-  )
-}
+import Home from "./pages/Home"
 
-export default App
+function App() {
+  return <Home />
+}
+export default App ;
