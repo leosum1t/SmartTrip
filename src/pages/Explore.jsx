@@ -1,3 +1,5 @@
+import SearchBar from "../components/SearchBar"
+
 function Explore() {
   return (
     <main className="min-h-screen bg-sky-50 px-5 py-12">
@@ -10,6 +12,8 @@ function Explore() {
             Search destinations, explore useful travel information, and find inspiration for your next journey.
           </p>
         </div>
+
+        <SearchBar />
 
         <section className="mt-12">
           <div className="mb-5">
