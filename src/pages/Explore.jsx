@@ -1,6 +1,13 @@
+import { useState } from "react"
 import SearchBar from "../components/SearchBar"
 
 function Explore() {
+  const [searchedDestination, setSearchedDestination] = useState("")
+
+  const handleSearch = (query) => {
+    setSearchedDestination(query)
+  }
+
   return (
     <main className="min-h-screen bg-sky-50 px-5 py-12">
       <div className="mx-auto max-w-7xl">
@@ -13,7 +20,7 @@ function Explore() {
           </p>
         </div>
 
-        <SearchBar />
+        <SearchBar onSearch={handleSearch} />
 
         <section className="mt-12">
           <div className="mb-5">
@@ -21,11 +28,20 @@ function Explore() {
             <p className="mt-1 text-sm text-slate-500">Find a place you'd love to explore.</p>
           </div>
 
-          <div className="rounded-3xl border border-dashed border-sky-200 bg-white/60 px-6 py-16 text-center">
-            <i className="fa-regular fa-compass text-4xl text-sky-400"></i>
-            <h3 className="mt-4 text-lg font-semibold text-slate-800">Where do you want to go?</h3>
-            <p className="mt-2 text-sm text-slate-500">Search for a city or country and start exploring.</p>
-          </div>
+          {searchedDestination ? (
+            <div className="rounded-2xl border border-sky-100 bg-white p-6 shadow-sm">
+              <p className="text-slate-600">
+                Showing results for <span className="font-semibold text-sky-600">{searchedDestination}</span>
+              </p>
+            </div>
+          ) : (
+            <div className="rounded-3xl border border-dashed border-sky-200 bg-white/60 px-6 py-16 text-center">
+              <i className="fa-regular fa-compass text-4xl text-sky-400"></i>
+              <h3 className="mt-4 text-lg font-semibold text-slate-800">Where do you want to go?</h3>
+              <p className="mt-2 text-sm text-slate-500">Search for a city or country and start exploring.</p>
+            </div>
+          )}
+
         </section>
 
       </div>
