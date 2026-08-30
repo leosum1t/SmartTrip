@@ -1,48 +1,18 @@
 import { useState } from "react"
 import SearchBar from "../components/SearchBar"
 import DestinationCard from "../components/DestinationCard"
+import { searchLocations } from "../services/locationService"
 
 function Explore() {
   const [searchedDestination, setSearchedDestination] = useState("")
-  const destinations = [
-  {
-    id: 1,
-    city: "Kathmandu",
-    country: "Nepal",
-    region: "Asia",
-    image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    id: 2,
-    city: "Tokyo",
-    country: "Japan",
-    region: "Asia",
-    image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    id: 3,
-    city: "Paris",
-    country: "France",
-    region: "Europe",
-    image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    id: 4,
-    city: "Sydney",
-    country: "Australia",
-    region: "Oceania",
-    image: "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=900&q=80",
-  },
-]
+  const [destinations, setDestinations] = useState([])
 
-  const handleSearch = (query) => {
-    setSearchedDestination(query)
-  }
+  const handleSearch = async (query) => {
+  setSearchedDestination(query)
 
-  const filteredDestinations = destinations.filter((destination) =>
-    destination.city.toLowerCase().includes(searchedDestination.toLowerCase()) ||
-    destination.country.toLowerCase().includes(searchedDestination.toLowerCase())
-  )
+  const results = await searchLocations(query)
+  setDestinations(results)
+}
 
   return (
     <main className="min-h-screen bg-sky-50 px-5 py-12">
@@ -59,9 +29,9 @@ function Explore() {
         <section className="mt-12">
         
           {searchedDestination ? (
-            filteredDestinations.length > 0 ? (
+            destinations.length > 0 ? (
                 <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-                  {filteredDestinations.map((destination) => (
+                  {destinations.map((destination) => (
                     <DestinationCard key={destination.id} destination={destination} />
                   ))}
                 </div>
