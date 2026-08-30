@@ -1,8 +1,56 @@
 function DestinationDetails() {
   return (
-    <main className="min-h-screen bg-sky-50 px-5 py-12">
+    <main className="min-h-screen bg-sky-50 px-5 py-10">
       <div className="mx-auto max-w-7xl">
-        <h1 className="text-4xl font-extrabold text-slate-900">Destination Details</h1>
+
+        <div className="mb-8">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-600">Destination</p>
+          <h1 className="mt-2 text-4xl font-extrabold tracking-tight text-slate-900 md:text-5xl">Explore Your Destination</h1>
+        </div>
+
+        <div className="grid gap-8 lg:grid-cols-[1.4fr_1fr]">
+
+          <section className="rounded-3xl border border-sky-100 bg-white p-6 shadow-sm">
+            <div className="h-72 rounded-2xl bg-sky-100"></div>
+
+            <div className="mt-6">
+              <h2 className="text-3xl font-bold text-slate-900">Destination Name</h2>
+              <p className="mt-2 text-slate-500">Country and region information will appear here.</p>
+            </div>
+          </section>
+
+          <section className="rounded-3xl border border-sky-100 bg-white p-6 shadow-sm">
+            <h2 className="text-xl font-bold text-slate-900">Location Information</h2>
+
+            <div className="mt-6 space-y-5">
+              <div className="flex items-center gap-3">
+                <i className="fa-solid fa-location-dot text-sky-600"></i>
+                <div>
+                  <p className="text-sm text-slate-500">Coordinates</p>
+                  <p className="font-semibold text-slate-800">Latitude, Longitude</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <i className="fa-regular fa-clock text-sky-600"></i>
+                <div>
+                  <p className="text-sm text-slate-500">Timezone</p>
+                  <p className="font-semibold text-slate-800">Timezone</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <i className="fa-solid fa-earth-asia text-sky-600"></i>
+                <div>
+                  <p className="text-sm text-slate-500">Country</p>
+                  <p className="font-semibold text-slate-800">Country Name</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </div>
+
       </div>
     </main>
   )
