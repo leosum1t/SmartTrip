@@ -7,16 +7,22 @@ function Explore() {
   const [searchedDestination, setSearchedDestination] = useState("")
   const [destinations, setDestinations] = useState([])
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
 
   const handleSearch = async (query) => {
   setSearchedDestination(query)
   setLoading(true)
+  setError("")
 
-  const results = await searchLocations(query)
-  setDestinations(results)
-
-  setLoading(false)
-}
+  try {
+    const results = await searchLocations(query)
+    setDestinations(results)
+  } catch (error) {
+    setDestinations([])
+    setError("Unable to load destinations. Please try again.")
+  } finally {
+    setLoading(false)
+  }}
 
   return (
     <main className="min-h-screen bg-sky-50 px-5 py-12">
@@ -34,10 +40,16 @@ function Explore() {
         
           {loading ? (
             <div className="rounded-2xl border border-sky-100 bg-white px-5 py-12 text-center shadow-sm">
-              <i className="fa-solid fa-spinner fa-spin text-3xl text-sky-600"></i>
-              <p className="mt-3 text-sm text-slate-500">Searching destinations...</p>
+            <i className="fa-solid fa-spinner fa-spin text-3xl text-sky-600"></i>
+            <p className="mt-3 text-sm text-slate-500">Searching destinations...</p>
+          </div>
+          ) : error ? (
+            <div className="rounded-2xl border border-red-100 bg-white px-5 py-10 text-center shadow-sm">
+              <i className="fa-solid fa-circle-exclamation text-3xl text-red-400"></i>
+              <h3 className="mt-4 text-lg font-semibold text-slate-800">Something went wrong</h3>
+              <p className="mt-2 text-sm text-slate-500">{error}</p>
             </div>
-            ) : searchedDestination ? (
+          ) : searchedDestination ? (
             destinations.length > 0 ? (
                 <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
                   {destinations.map((destination) => (
