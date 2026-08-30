@@ -2,6 +2,7 @@ import { useState } from "react"
 import SearchBar from "../components/SearchBar"
 import DestinationCard from "../components/DestinationCard"
 import { searchLocations } from "../services/locationService"
+import { getDestinationImage } from "../services/imageService"
 
 function Explore() {
   const [searchedDestination, setSearchedDestination] = useState("")
@@ -16,7 +17,14 @@ function Explore() {
 
   try {
     const results = await searchLocations(query)
-    setDestinations(results)
+    const destinationsWithImages = await Promise.all(
+    results.map(async (destination) => {
+      const image = await getDestinationImage(`${destination.name} ${destination.country} travel`)
+      return { ...destination, image }
+    })
+  )
+
+setDestinations(destinationsWithImages)
   } catch (error) {
     setDestinations([])
     setError("Unable to load destinations. Please try again.")
@@ -53,7 +61,7 @@ function Explore() {
             destinations.length > 0 ? (
                 <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
                   {destinations.map((destination) => (
-                    <DestinationCard key={destination.id} destination={destination} />
+                    <DestinationCard key={destination.id} destination={destination} image={destination.image} />
                   ))}
                 </div>
               ) : (

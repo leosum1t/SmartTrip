@@ -1,7 +1,10 @@
-function DestinationCard({ destination }) {
+function DestinationCard({ destination, image }) {
   return (
     <div className="rounded-2xl border border-sky-100 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
-
+      {image && (
+        <img src={image.src.large} alt={destination.name} className="mb-5 h-48 w-full rounded-xl object-cover" />
+      )}
+      
       <div className="flex items-start justify-between gap-3">
         <div>
           <h3 className="text-xl font-bold text-slate-900">{destination.name}</h3>
