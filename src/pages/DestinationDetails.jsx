@@ -1,4 +1,9 @@
+import { useLocation } from "react-router-dom"
+
 function DestinationDetails() {
+const location = useLocation()
+const destination = location.state?.destination
+
   return (
     <main className="min-h-screen bg-sky-50 px-5 py-10">
       <div className="mx-auto max-w-7xl">
@@ -11,11 +16,18 @@ function DestinationDetails() {
         <div className="grid gap-8 lg:grid-cols-[1.4fr_1fr]">
 
           <section className="rounded-3xl border border-sky-100 bg-white p-6 shadow-sm">
-            <div className="h-72 rounded-2xl bg-sky-100"></div>
-
+            {destination?.image ? (
+            <img src={destination.image.src.large} alt={destination.name}
+                className="h-72 w-full rounded-2xl object-cover"
+            />
+            ) : (
+            <div className="flex h-72 items-center justify-center rounded-2xl bg-sky-100">
+                <i className="fa-regular fa-image text-4xl text-sky-300"></i>
+            </div>
+            )}
             <div className="mt-6">
-              <h2 className="text-3xl font-bold text-slate-900">Destination Name</h2>
-              <p className="mt-2 text-slate-500">Country and region information will appear here.</p>
+              <h2 className="text-3xl font-bold text-slate-900">{destination?.name}</h2>
+              <p className="mt-2 text-slate-500">{destination?.admin1 ? `${destination.admin1}, ` : ""}{destination?.country}</p>
             </div>
           </section>
 
@@ -27,7 +39,7 @@ function DestinationDetails() {
                 <i className="fa-solid fa-location-dot text-sky-600"></i>
                 <div>
                   <p className="text-sm text-slate-500">Coordinates</p>
-                  <p className="font-semibold text-slate-800">Latitude, Longitude</p>
+                  <p className="font-semibold text-slate-800">{destination?.latitude}, {destination?.longitude}</p>
                 </div>
               </div>
 
@@ -35,7 +47,7 @@ function DestinationDetails() {
                 <i className="fa-regular fa-clock text-sky-600"></i>
                 <div>
                   <p className="text-sm text-slate-500">Timezone</p>
-                  <p className="font-semibold text-slate-800">Timezone</p>
+                  <p className="font-semibold text-slate-800">{destination?.timezone}</p>
                 </div>
               </div>
 
@@ -43,7 +55,7 @@ function DestinationDetails() {
                 <i className="fa-solid fa-earth-asia text-sky-600"></i>
                 <div>
                   <p className="text-sm text-slate-500">Country</p>
-                  <p className="font-semibold text-slate-800">Country Name</p>
+                  <p className="font-semibold text-slate-800">{destination?.country}</p>
                 </div>
               </div>
             </div>
