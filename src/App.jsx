@@ -5,6 +5,7 @@ import Explore from "./pages/Explore"
 import Favorites from "./pages/Favorites"
 import Dashboard from "./pages/Dashboard"
 import NotFound from "./pages/NotFound"
+import DestinationDetails from "./pages/DestinationDetails"
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/destination/:id" element={<DestinationDetails />} />
       </Routes>
     </BrowserRouter>
   )
