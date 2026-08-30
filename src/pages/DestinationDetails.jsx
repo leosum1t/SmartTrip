@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 
 function DestinationDetails() {
 const location = useLocation()
@@ -9,8 +9,14 @@ const destination = location.state?.destination
       <div className="mx-auto max-w-7xl">
 
         <div className="mb-8">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-600">Destination</p>
-          <h1 className="mt-2 text-4xl font-extrabold tracking-tight text-slate-900 md:text-5xl">Explore Your Destination</h1>
+          <Link to="/explore" className="mb-5 inline-flex items-center gap-2 text-sm font-semibold text-slate-900 transition hover:text-sky-600">
+            <i className="fa-solid fa-arrow-left"></i>
+            Back to Explore
+            </Link>
+
+            <h1 className="text-3xl font-extrabold tracking-tight text-sky-600 md:text-4xl">
+                Explore Your Destination
+            </h1>
         </div>
 
         <div className="grid gap-8 lg:grid-cols-[1.4fr_1fr]">
