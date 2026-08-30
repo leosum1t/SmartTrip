@@ -6,12 +6,16 @@ import { searchLocations } from "../services/locationService"
 function Explore() {
   const [searchedDestination, setSearchedDestination] = useState("")
   const [destinations, setDestinations] = useState([])
+  const [loading, setLoading] = useState(false)
 
   const handleSearch = async (query) => {
   setSearchedDestination(query)
+  setLoading(true)
 
   const results = await searchLocations(query)
   setDestinations(results)
+
+  setLoading(false)
 }
 
   return (
@@ -28,7 +32,12 @@ function Explore() {
 
         <section className="mt-12">
         
-          {searchedDestination ? (
+          {loading ? (
+            <div className="rounded-2xl border border-sky-100 bg-white px-5 py-12 text-center shadow-sm">
+              <i className="fa-solid fa-spinner fa-spin text-3xl text-sky-600"></i>
+              <p className="mt-3 text-sm text-slate-500">Searching destinations...</p>
+            </div>
+            ) : searchedDestination ? (
             destinations.length > 0 ? (
                 <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
                   {destinations.map((destination) => (
