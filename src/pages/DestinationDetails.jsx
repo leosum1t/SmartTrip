@@ -19,13 +19,13 @@ const destinations = location.state?.destinations
             <i className="fa-solid fa-arrow-left"></i>
             Back to Explore
           </button>
-          
+
             <h1 className="text-3xl font-extrabold tracking-tight text-sky-600 md:text-4xl">
                 Explore Your Destination
             </h1>
         </div>
 
-        <div className="grid gap-8 lg:grid-cols-[1.4fr_1fr]">
+        <div className="grid items-start gap-8 lg:grid-cols-[1.4fr_1fr]">
 
           <section className="rounded-3xl border border-sky-100 bg-white p-6 shadow-sm">
             {destination?.image ? (
