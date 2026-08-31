@@ -57,6 +57,7 @@ useEffect(() => {
             </div>
           </section>
 
+          <div className="space-y-6">
           <section className="rounded-3xl border border-sky-100 bg-white p-6 shadow-sm">
             <h2 className="text-xl font-bold text-slate-900">Location Information</h2>
 
@@ -83,17 +84,13 @@ useEffect(() => {
                   <p className="text-sm text-slate-500">Country</p>
                   <p className="font-semibold text-slate-800">{destination?.country}</p>
                 </div>
-
-
               </div>
             </div>
           </section>
 
-          {weather && (
-          <div className="mt-8">
-            <WeatherCard weather={weather} />
-          </div>
-        )}
+          {weather && <WeatherCard weather={weather} />}
+
+        </div>
 
         </div>
 
