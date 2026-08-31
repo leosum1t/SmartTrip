@@ -7,6 +7,8 @@ function DestinationDetails() {
 const location = useLocation()
 const navigate = useNavigate()
 const [weather, setWeather] = useState(null)
+const [weatherLoading, setWeatherLoading] = useState(false)
+const [weatherError, setWeatherError] = useState("")
 const destination = location.state?.destination
 const searchedDestination = location.state?.searchedDestination
 const destinations = location.state?.destinations
@@ -15,13 +17,21 @@ useEffect(() => {
   if (!destination?.latitude || !destination?.longitude) return
 
   const fetchWeather = async () => {
-    const data = await getCurrentWeather(destination.latitude, destination.longitude)
-    setWeather(data)
+    setWeatherLoading(true)
+    setWeatherError("")
+
+    try {
+      const data = await getCurrentWeather(destination.latitude, destination.longitude)
+      setWeather(data)
+    } catch (error) {
+      setWeatherError("Unable to load weather information.")
+    } finally {
+      setWeatherLoading(false)
+    }
   }
 
   fetchWeather()
 }, [destination])
-
 
   return (
     <main className="min-h-screen bg-sky-50 px-5 py-10">
@@ -88,12 +98,22 @@ useEffect(() => {
             </div>
           </section>
 
-          {weather && <WeatherCard weather={weather} />}
+          {weatherLoading ? (
+            <div className="rounded-3xl border border-sky-100 bg-white p-6 shadow-sm">
+              <h2 className="text-xl font-bold text-slate-900">Current Weather</h2>
+              <p className="mt-4 text-sm text-slate-400">Loading weather...</p>
+            </div>
+          ) : weatherError ? (
+            <div className="rounded-3xl border border-sky-100 bg-white p-6 shadow-sm">
+              <h2 className="text-xl font-bold text-slate-900">Current Weather</h2>
+              <p className="mt-4 text-sm text-red-400">Unable to load weather information.</p>
+            </div>
+          ) : weather ? (
+            <WeatherCard weather={weather} />
+          ) : null}
 
         </div>
-
         </div>
-
       </div>
     </main>
   )
