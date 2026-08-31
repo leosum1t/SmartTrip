@@ -1,13 +1,27 @@
 import { useLocation, useNavigate } from "react-router-dom"
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
+import { getCurrentWeather } from "../services/weatherService"
 
 function DestinationDetails() {
 const location = useLocation()
 const navigate = useNavigate()
-
+const [weather, setWeather] = useState(null)
 const destination = location.state?.destination
 const searchedDestination = location.state?.searchedDestination
 const destinations = location.state?.destinations
+
+useEffect(() => {
+  if (!destination?.latitude || !destination?.longitude) return
+
+  const fetchWeather = async () => {
+    const data = await getCurrentWeather(destination.latitude, destination.longitude)
+    setWeather(data)
+  }
+
+  fetchWeather()
+}, [destination])
+
 
   return (
     <main className="min-h-screen bg-sky-50 px-5 py-10">
@@ -69,6 +83,15 @@ const destinations = location.state?.destinations
                   <p className="text-sm text-slate-500">Country</p>
                   <p className="font-semibold text-slate-800">{destination?.country}</p>
                 </div>
+
+                {/* temporarily */}
+                {weather && (
+                  <div className="mt-8 rounded-2xl border border-sky-100 bg-white p-6 shadow-sm">
+                    <h2 className="text-xl font-bold text-slate-900">Current Weather</h2>
+                    <p className="mt-3 text-slate-600">Temperature: {weather.temperature_2m}°C</p>
+                  </div>
+                )}
+                
               </div>
             </div>
           </section>
