@@ -1,19 +1,25 @@
-import { Link, useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 function DestinationDetails() {
 const location = useLocation()
+const navigate = useNavigate()
+
 const destination = location.state?.destination
+const searchedDestination = location.state?.searchedDestination
+const destinations = location.state?.destinations
 
   return (
     <main className="min-h-screen bg-sky-50 px-5 py-10">
       <div className="mx-auto max-w-7xl">
 
         <div className="mb-8">
-          <Link to="/explore" className="mb-5 inline-flex items-center gap-2 text-sm font-semibold text-slate-900 transition hover:text-sky-600">
+          <button onClick={() => navigate("/explore", { state: { searchedDestination, destinations },})}
+            className="mb-5 inline-flex cursor-pointer items-center gap-2 text-sm font-semibold text-slate-900 transition duration-200 hover:text-sky-600">
             <i className="fa-solid fa-arrow-left"></i>
             Back to Explore
-            </Link>
-
+          </button>
+          
             <h1 className="text-3xl font-extrabold tracking-tight text-sky-600 md:text-4xl">
                 Explore Your Destination
             </h1>

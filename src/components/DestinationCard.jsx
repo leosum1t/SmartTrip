@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 
-function DestinationCard({ destination, image }) {
+function DestinationCard({ destination, image, searchedDestination, destinations }) {
   return (
     <div className="rounded-2xl border border-sky-100 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
       {image && (
@@ -28,7 +28,8 @@ function DestinationCard({ destination, image }) {
         <p><i className="fa-regular fa-clock mr-2 text-sky-600"></i>{destination.timezone}</p>
       </div>
 
-      <Link to={`/destination/${destination.id}`} state={{ destination }} className="mt-5 inline-block font-semibold text-sky-600 transition hover:text-sky-700">
+      <Link to={`/destination/${destination.id}`} state={{ destination, searchedDestination, destinations }}
+        className="mt-5 inline-block font-semibold text-sky-600 transition hover:text-sky-700">
         View Details <i className="fa-solid fa-arrow-right ml-1"></i>
       </Link>
 

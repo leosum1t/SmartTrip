@@ -1,14 +1,23 @@
-import { useState } from "react"
+import { useLocation, useNavigate} from "react-router-dom"
+import { useEffect, useState } from "react"
 import SearchBar from "../components/SearchBar"
 import DestinationCard from "../components/DestinationCard"
 import { searchLocations } from "../services/locationService"
 import { getDestinationImage } from "../services/imageService"
 
 function Explore() {
-  const [searchedDestination, setSearchedDestination] = useState("")
-  const [destinations, setDestinations] = useState([])
+  const location = useLocation()
+  const navigate = useNavigate()
+  const [searchedDestination, setSearchedDestination] = useState(location.state?.searchedDestination || "")
+  const [destinations, setDestinations] = useState(location.state?.destinations || [])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
+
+  useEffect(() => {
+  if (location.state) {
+    navigate(location.pathname, { replace: true, state: null })
+  }
+}, [])
 
   const handleSearch = async (query) => {
   setSearchedDestination(query)
@@ -61,7 +70,13 @@ setDestinations(destinationsWithImages)
             destinations.length > 0 ? (
                 <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
                   {destinations.map((destination) => (
-                    <DestinationCard key={destination.id} destination={destination} image={destination.image} />
+                    <DestinationCard
+                      key={destination.id}
+                      destination={destination}
+                      image={destination.image}
+                      searchedDestination={searchedDestination}
+                      destinations={destinations}
+                    />
                   ))}
                 </div>
               ) : (
