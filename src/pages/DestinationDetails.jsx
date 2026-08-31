@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
 import { getCurrentWeather } from "../services/weatherService"
+import WeatherCard from "../components/WeatherCard"
 
 function DestinationDetails() {
 const location = useLocation()
@@ -84,17 +84,16 @@ useEffect(() => {
                   <p className="font-semibold text-slate-800">{destination?.country}</p>
                 </div>
 
-                {/* temporarily */}
-                {weather && (
-                  <div className="mt-8 rounded-2xl border border-sky-100 bg-white p-6 shadow-sm">
-                    <h2 className="text-xl font-bold text-slate-900">Current Weather</h2>
-                    <p className="mt-3 text-slate-600">Temperature: {weather.temperature_2m}°C</p>
-                  </div>
-                )}
-                
+
               </div>
             </div>
           </section>
+
+          {weather && (
+          <div className="mt-8">
+            <WeatherCard weather={weather} />
+          </div>
+        )}
 
         </div>
 
