@@ -56,13 +56,13 @@ useEffect(() => {
 
         <div className="grid items-start gap-8 lg:grid-cols-[1.4fr_1fr]">
 
-          <section className="rounded-3xl border border-sky-100 bg-white p-6 shadow-sm">
+          <section className="h-full rounded-3xl border border-sky-100 bg-white p-6 shadow-sm">
             {destination?.image ? (
             <img src={destination.image.src.large} alt={destination.name}
-                className="h-72 w-full rounded-2xl object-cover"
+                className="h-[390px] w-full rounded-2xl object-cover"
             />
             ) : (
-            <div className="flex h-72 items-center justify-center rounded-2xl bg-sky-100">
+            <div className="flex h-[390px] items-center justify-center rounded-2xl bg-sky-100">
                 <i className="fa-regular fa-image text-4xl text-sky-300"></i>
             </div>
             )}
@@ -116,12 +116,13 @@ useEffect(() => {
           ) : weather ? (
             <WeatherCard weather={weather} />
           ) : null}
-
-          {forecast && (
+         </div>
+      </div>
+            {forecast && (
             <section className="mt-8">
               <h2 className="mb-5 text-xl font-bold text-slate-900">5-Day Forecast</h2>
 
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+              <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
                 {forecast.time.map((date, index) => (
                   <ForecastCard
                     key={date}
@@ -136,11 +137,8 @@ useEffect(() => {
             </section>
           )}
 
-        </div>
-        </div>
       </div>
     </main>
   )
 }
-
 export default DestinationDetails
