@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { getCurrentWeather, getWeatherForecast } from "../services/weatherService"
 import WeatherCard from "../components/WeatherCard"
+import ForecastCard from "../components/ForecastCard"
 
 function DestinationDetails() {
 const location = useLocation()
@@ -117,9 +118,22 @@ useEffect(() => {
           ) : null}
 
           {forecast && (
-            <p className="mt-4 text-sm text-slate-500">
-              Forecast loaded for {forecast.time.length} days.
-            </p>
+            <section className="mt-8">
+              <h2 className="mb-5 text-xl font-bold text-slate-900">5-Day Forecast</h2>
+
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+                {forecast.time.map((date, index) => (
+                  <ForecastCard
+                    key={date}
+                    date={date}
+                    weatherCode={forecast.weather_code[index]}
+                    maxTemp={forecast.temperature_2m_max[index]}
+                    minTemp={forecast.temperature_2m_min[index]}
+                    rainChance={forecast.precipitation_probability_max[index]}
+                  />
+                ))}
+              </div>
+            </section>
           )}
 
         </div>
