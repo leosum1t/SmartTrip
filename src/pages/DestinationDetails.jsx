@@ -1,12 +1,13 @@
 import { useLocation, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
-import { getCurrentWeather } from "../services/weatherService"
+import { getCurrentWeather, getWeatherForecast } from "../services/weatherService"
 import WeatherCard from "../components/WeatherCard"
 
 function DestinationDetails() {
 const location = useLocation()
 const navigate = useNavigate()
 const [weather, setWeather] = useState(null)
+const [forecast, setForecast] = useState(null)
 const [weatherLoading, setWeatherLoading] = useState(false)
 const [weatherError, setWeatherError] = useState("")
 const destination = location.state?.destination
@@ -23,6 +24,9 @@ useEffect(() => {
     try {
       const data = await getCurrentWeather(destination.latitude, destination.longitude)
       setWeather(data)
+
+      const forecastData = await getWeatherForecast(destination.latitude, destination.longitude)
+      setForecast(forecastData)
     } catch (error) {
       setWeatherError("Unable to load weather information.")
     } finally {
@@ -111,6 +115,12 @@ useEffect(() => {
           ) : weather ? (
             <WeatherCard weather={weather} />
           ) : null}
+
+          {forecast && (
+            <p className="mt-4 text-sm text-slate-500">
+              Forecast loaded for {forecast.time.length} days.
+            </p>
+          )}
 
         </div>
         </div>
