@@ -13,21 +13,27 @@ function ForecastCard({ date, weatherCode, maxTemp, minTemp, rainChance }) {
 
   const weather = getWeatherInfo(weatherCode)
 
-  const day = new Date(date).toLocaleDateString("en-US", {
-    weekday: "long",
-  })
+  const forecastDate = new Date(date)
+  const today = new Date()
+  const tomorrow = new Date()
+  tomorrow.setDate(today.getDate() + 1)
 
-  const formattedDate = new Date(date).toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-  })
+  const isToday = forecastDate.toDateString() === today.toDateString()
+  const isTomorrow = forecastDate.toDateString() === tomorrow.toDateString()
+  const dayLabel = isToday
+  ? "Today"
+  : isTomorrow
+  ? "Tomorrow"
+  : forecastDate.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+    })
 
   return (
     <div className="rounded-2xl border border-sky-100 bg-white p-5 shadow-sm">
 
       <div>
-        <h3 className="font-bold text-slate-900">{day}</h3>
-        <p className="mt-1 text-sm text-slate-500">{formattedDate}</p>
+        <h3 className="font-bold text-slate-900">{dayLabel}</h3>
       </div>
 
       <div className="my-6 text-center">
