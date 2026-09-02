@@ -121,9 +121,9 @@ useEffect(() => {
       </div>
             {forecast && (
             <section className="mt-8">
-              <h2 className="mb-5 text-xl font-bold text-slate-900">5-Day Forecast</h2>
+              <h2 className="mb-5 text-xl font-bold text-slate-900">6-Day Forecast</h2>
 
-              <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+              <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
                 {forecast.time.map((date, index) => (
                   <ForecastCard
                     key={date}
