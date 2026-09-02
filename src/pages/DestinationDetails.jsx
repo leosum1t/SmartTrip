@@ -139,8 +139,10 @@ useEffect(() => {
                     <h2 className="mb-5 text-xl font-bold text-slate-900">Explore on Map</h2>
 
                     <DestinationMap
-                      latitude={destination.latitude}
-                      longitude={destination.longitude}
+                    latitude={destination.latitude}
+                    longitude={destination.longitude}
+                    name={destination.name}
+                    country={destination.country}
                     />
                   </section>
                 )}
