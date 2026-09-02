@@ -134,19 +134,31 @@ useEffect(() => {
                     rainChance={forecast.precipitation_probability_max[index]}
                   />
                 ))}
-                {destination?.latitude && destination?.longitude && (
-                  <section className="mt-10">
-                    <h2 className="mb-5 text-xl font-bold text-slate-900">Explore on Map</h2>
-
-                    <DestinationMap
-                    latitude={destination.latitude}
-                    longitude={destination.longitude}
-                    name={destination.name}
-                    country={destination.country}
-                    />
-                  </section>
-                )}
               </div>
+            </section>
+          )}
+          {destination?.latitude && destination?.longitude && (
+            <section className="mt-10 max-w-5xl">
+              <div className="mb-5 flex items-end justify-between gap-6">
+                <div>
+                  <h2 className="text-xl font-bold text-slate-900">Explore on Map</h2>
+                  <p className="mt-1 text-sm text-slate-500">
+                    View the location of {destination.name} and explore the surrounding area.
+                  </p>
+                </div>
+
+                <div className="flex shrink-0 items-center gap-2 text-sm text-slate-500">
+                  <i className="fa-solid fa-location-dot text-sky-600"></i>
+                  {destination.name}, {destination.country}
+                </div>
+              </div>
+
+              <DestinationMap
+                latitude={destination.latitude}
+                longitude={destination.longitude}
+                name={destination.name}
+                country={destination.country}
+              />
             </section>
           )}
 

@@ -13,7 +13,7 @@ const markerIcon = new L.Icon({
 
 function DestinationMap({ latitude, longitude, name, country }) {
    return (
-    <div className="overflow-hidden rounded-3xl border border-sky-100 bg-white shadow-sm">
+    <div className="mx-auto w-full max-w-5xl overflow-hidden rounded-3xl border border-sky-100 bg-white shadow-sm">
       <MapContainer center={[latitude, longitude]} zoom={11} className="h-[400px] w-full">
         <TileLayer
           attribution="&copy; OpenStreetMap contributors"
