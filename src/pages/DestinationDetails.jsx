@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { getCurrentWeather, getWeatherForecast } from "../services/weatherService"
 import WeatherCard from "../components/WeatherCard"
 import ForecastCard from "../components/ForecastCard"
+import DestinationMap from "../components/DestinationMap"
 
 function DestinationDetails() {
 const location = useLocation()
@@ -133,6 +134,16 @@ useEffect(() => {
                     rainChance={forecast.precipitation_probability_max[index]}
                   />
                 ))}
+                {destination?.latitude && destination?.longitude && (
+                  <section className="mt-10">
+                    <h2 className="mb-5 text-xl font-bold text-slate-900">Explore on Map</h2>
+
+                    <DestinationMap
+                      latitude={destination.latitude}
+                      longitude={destination.longitude}
+                    />
+                  </section>
+                )}
               </div>
             </section>
           )}
