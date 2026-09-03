@@ -13,7 +13,7 @@ function Navbar() {
     }`
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-sky-100/70 bg-sky-50/70 shadow-sm backdrop-blur-xl">
+    <nav className="sticky top-0 z-[1000] border-b border-sky-100/70 bg-sky-50/70 shadow-sm backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
 
         <NavLink to="/" className="flex items-center gap-3" onClick={() => setMenuOpen(false)}>
