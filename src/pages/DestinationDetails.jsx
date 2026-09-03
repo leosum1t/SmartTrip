@@ -5,6 +5,7 @@ import WeatherCard from "../components/WeatherCard"
 import ForecastCard from "../components/ForecastCard"
 import DestinationMap from "../components/DestinationMap"
 import { getCountryCurrency } from "../services/countryService"
+import CurrencyConverter from "../components/CurrencyConverter"
 
 function DestinationDetails() {
 const location = useLocation()
@@ -179,12 +180,9 @@ useEffect(() => {
             </section>
           )}
           {currency && (
-            <div className="mt-8 rounded-2xl border border-sky-100 bg-white p-5 shadow-sm">
-              <h2 className="text-xl font-bold text-slate-900">Local Currency</h2>
-              <p className="mt-2 text-slate-600">
-                {currency.name} ({currency.code}) {currency.symbol}
-              </p>
-            </div>
+          <section className="mt-10 max-w-5xl">
+            <CurrencyConverter currency={currency} />
+          </section>
           )}
 
       </div>
