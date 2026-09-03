@@ -4,6 +4,7 @@ import { getCurrentWeather, getWeatherForecast } from "../services/weatherServic
 import WeatherCard from "../components/WeatherCard"
 import ForecastCard from "../components/ForecastCard"
 import DestinationMap from "../components/DestinationMap"
+import { getCountryCurrency } from "../services/countryService"
 
 function DestinationDetails() {
 const location = useLocation()
@@ -15,6 +16,22 @@ const [weatherError, setWeatherError] = useState("")
 const destination = location.state?.destination
 const searchedDestination = location.state?.searchedDestination
 const destinations = location.state?.destinations
+const [currency, setCurrency] = useState(null)
+
+useEffect(() => {
+  if (!destination?.country_code) return
+
+  const fetchCurrency = async () => {
+    try {
+      const data = await getCountryCurrency(destination.country_code)
+      setCurrency(data)
+    } catch (error) {
+      setCurrency(null)
+    }
+  }
+
+  fetchCurrency()
+}, [destination])
 
 useEffect(() => {
   if (!destination?.latitude || !destination?.longitude) return
@@ -160,6 +177,14 @@ useEffect(() => {
                 country={destination.country}
               />
             </section>
+          )}
+          {currency && (
+            <div className="mt-8 rounded-2xl border border-sky-100 bg-white p-5 shadow-sm">
+              <h2 className="text-xl font-bold text-slate-900">Local Currency</h2>
+              <p className="mt-2 text-slate-600">
+                {currency.name} ({currency.code}) {currency.symbol}
+              </p>
+            </div>
           )}
 
       </div>
