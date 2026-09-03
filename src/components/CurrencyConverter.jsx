@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
-import {convertCurrency, getSupportedCurrencies,
-} from "../services/currencyService"
+import { convertCurrency, getSupportedCurrencies } from "../services/currencyService"
 
 function CurrencyConverter({ currency }) {
   const [amount, setAmount] = useState("")
@@ -36,12 +35,7 @@ function CurrencyConverter({ currency }) {
     setResult(null)
 
     try {
-      const data = await convertCurrency(
-        fromCurrency,
-        currency.code,
-        Number(amount)
-      )
-
+      const data = await convertCurrency(fromCurrency, currency.code, Number(amount))
       setResult(data)
     } catch (error) {
       setError("Unable to convert this currency pair.")
@@ -54,86 +48,55 @@ function CurrencyConverter({ currency }) {
     <section className="rounded-3xl border border-sky-100 bg-white p-6 shadow-sm">
       <h2 className="text-xl font-bold text-slate-900">Currency Converter</h2>
 
-      <p className="mt-1 text-sm text-slate-500">
-        Convert your currency to {currency.name}.
-      </p>
+      <form onSubmit={handleConvert} className="mt-6">
+        <div className="grid gap-x-6 gap-y-5 md:grid-cols-[1.2fr_180px_1fr]">
 
-      <form onSubmit={handleConvert} className="mt-6 space-y-5">
-        <div>
-          <label className="mb-2 block text-sm font-semibold text-slate-700">
-            Amount
-          </label>
-
-          <input
-            type="number"
-            min="0"
-            step="any"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            placeholder="Enter amount"
-            className="w-full rounded-xl border border-sky-100 bg-sky-50 px-4 py-3 outline-none transition focus:border-sky-400"
-          />
-        </div>
-
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div>
-            <label className="mb-2 block text-sm font-semibold text-slate-700">
-              From
-            </label>
-
-            <select
-              value={fromCurrency}
-              onChange={(e) => {
-                setFromCurrency(e.target.value)
-                setResult(null)
-              }}
-              className="w-full rounded-xl border border-sky-100 bg-sky-50 px-4 py-3 outline-none focus:border-sky-400"
-            >
+          <div className="order-1">
+            <label className="mb-2 block text-sm font-semibold text-slate-700">From</label>
+            <select value={fromCurrency} onChange={(e) => { setFromCurrency(e.target.value); setResult(null) }}
+              className="w-full rounded-xl border border-sky-100 bg-sky-50 px-4 py-3 text-slate-800 outline-none transition duration-200 hover:border-sky-300 focus:border-sky-400">
               {currencies.map((item) => (
-                <option key={item.iso_code} value={item.iso_code}>
-                  {item.iso_code} - {item.name}
-                </option>
+                <option key={item.iso_code} value={item.iso_code}>{item.iso_code} - {item.name}</option>
               ))}
             </select>
           </div>
 
-          <div>
-            <label className="mb-2 block text-sm font-semibold text-slate-700">
-              To
-            </label>
+          <div className="order-2">
+            <label className="mb-2 block text-sm font-semibold text-slate-700">Amount</label>
+            <input type="number" min="0" step="any" value={amount} placeholder="Enter amount"
+              onChange={(e) => { setAmount(e.target.value); setResult(null) }}
+              className="w-full rounded-xl border border-sky-100 bg-sky-50 px-4 py-3 text-slate-800 outline-none transition duration-200 hover:border-sky-300 focus:border-sky-400" />
+          </div>
 
-            <div className="rounded-xl border border-sky-100 bg-slate-50 px-4 py-3 font-semibold text-slate-700">
+          <div className="order-5 md:order-3">
+            <p className="mb-2 text-sm font-semibold text-slate-700">Converted Amount</p>
+            {result && <p className="flex h-[50px] items-center text-xl font-bold text-slate-900">{currency.symbol} {result.convertedAmount.toFixed(2)}</p>}
+          </div>
+
+          <div className="order-3 md:order-4">
+            <label className="mb-2 block text-sm font-semibold text-slate-700">To</label>
+            <div className="flex h-[50px] cursor-default items-center rounded-xl border border-sky-100 bg-slate-50 px-4 font-semibold text-slate-700 transition duration-200 hover:border-sky-300">
               {currency.code} - {currency.name}
             </div>
           </div>
+
+          <div className="order-4 md:order-5">
+            <p className="mb-2 text-sm font-semibold text-slate-700">Convert</p>
+            <button type="submit" disabled={loading || currencies.length === 0}
+              className="h-[50px] w-full cursor-pointer rounded-xl border-2 border-sky-600 bg-transparent px-4 font-semibold text-slate-900 transition duration-200 hover:bg-sky-600 hover:text-white disabled:cursor-not-allowed disabled:opacity-50">
+              {loading ? "Converting..." : "Convert Currency"}
+            </button>
+          </div>
+
+          <div className="order-6">
+            <p className="mb-2 text-sm font-semibold text-slate-700">Exchange Rate</p>
+            {result && <p className="flex h-[50px] items-center font-semibold text-slate-800">1 {fromCurrency} = {result.rate.toFixed(4)} {currency.code}</p>}
+          </div>
+
         </div>
 
-        <button
-          type="submit"
-          disabled={loading || currencies.length === 0}
-          className="w-full rounded-xl bg-sky-600 px-5 py-3 font-semibold text-white transition hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-60"
-        >
-          {loading ? "Converting..." : "Convert"}
-        </button>
+        {error && <p className="mt-4 text-sm text-red-400">{error}</p>}
       </form>
-
-      {error && (
-        <p className="mt-4 text-sm text-red-400">{error}</p>
-      )}
-
-      {result && (
-        <div className="mt-5 rounded-2xl bg-sky-50 p-4">
-          <p className="text-sm text-slate-500">Converted Amount</p>
-
-          <p className="mt-1 text-2xl font-bold text-slate-900">
-            {currency.symbol} {result.convertedAmount.toFixed(2)}
-          </p>
-
-          <p className="mt-2 text-xs text-slate-500">
-            1 {fromCurrency} = {result.rate.toFixed(4)} {currency.code}
-          </p>
-        </div>
-      )}
     </section>
   )
 }
