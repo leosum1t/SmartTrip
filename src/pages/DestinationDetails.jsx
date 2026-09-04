@@ -6,6 +6,7 @@ import ForecastCard from "../components/ForecastCard"
 import DestinationMap from "../components/DestinationMap"
 import { getCountryCurrency } from "../services/countryService"
 import CurrencyConverter from "../components/CurrencyConverter"
+import { isFavorite, removeFavorite, saveFavorite } from "../utils/favoriteUtils"
 
 function DestinationDetails() {
 const location = useLocation()
@@ -18,6 +19,7 @@ const destination = location.state?.destination
 const searchedDestination = location.state?.searchedDestination
 const destinations = location.state?.destinations
 const [currency, setCurrency] = useState(null)
+const [favorite, setFavorite] = useState(false)
 
 useEffect(() => {
   if (!destination?.country_code) return
@@ -57,6 +59,22 @@ useEffect(() => {
   fetchWeather()
 }, [destination])
 
+useEffect(() => {
+  if (destination?.id) setFavorite(isFavorite(destination.id))
+}, [destination])
+
+const handleFavorite = () => {
+  if (!destination) return
+
+  if (favorite) {
+    removeFavorite(destination.id)
+    setFavorite(false)
+  } else {
+    saveFavorite(destination)
+    setFavorite(true)
+  }
+}
+
   return (
     <main className="min-h-screen bg-sky-50 px-5 py-10">
       <div className="mx-auto max-w-7xl">
@@ -85,12 +103,19 @@ useEffect(() => {
                 <i className="fa-regular fa-image text-4xl text-sky-300"></i>
             </div>
             )}
-            <div className="mt-6">
-              <h2 className="text-3xl font-bold text-slate-900">{destination?.name}</h2>
-              <p className="mt-2 text-slate-500">{destination?.admin1 ? `${destination.admin1}, ` : ""}{destination?.country}</p>
+            <div className="mt-6 flex items-end justify-between gap-4">
+              <div>
+                <h2 className="text-3xl font-bold text-slate-900">{destination?.name}</h2>
+                <p className="mt-2 text-slate-500">{destination?.admin1 ? `${destination.admin1}, ` : ""}{destination?.country}</p>
+              </div>
+
+              <button onClick={handleFavorite}
+                className="flex cursor-pointer items-center gap-2 rounded-xl border border-sky-200 px-4 py-2 text-sm font-semibold text-slate-900 transition duration-200 hover:border-sky-600 hover:text-sky-600">
+                <i className={`${favorite ? "fa-solid" : "fa-regular"} fa-heart ${favorite ? "text-red-500" : ""}`}></i>
+                {favorite ? "Saved" : "Save"}
+              </button>
             </div>
           </section>
-
           <div className="space-y-6">
           <section className="rounded-3xl border border-sky-100 bg-white p-6 shadow-sm">
             <h2 className="text-xl font-bold text-slate-900">Location Information</h2>
