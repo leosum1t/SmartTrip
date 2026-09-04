@@ -29,8 +29,8 @@ function DestinationCard({ destination, image, searchedDestination, destinations
       </div>
 
       <Link to={`/destination/${destination.id}`} state={{ destination, searchedDestination, destinations }}
-        className="mt-5 inline-block font-semibold text-sky-600 transition hover:text-sky-700">
-        View Details <i className="fa-solid fa-arrow-right ml-1"></i>
+        className="mt-5 inline-flex items-center gap-2 rounded-xl border border-sky-500 px-4 py-2 text-sm font-semibold text-slate-900 transition duration-200 hover:bg-sky-600 hover:text-white">View Details
+        <i className="fa-solid fa-arrow-right"></i>
       </Link>
 
     </div>
