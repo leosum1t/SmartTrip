@@ -20,6 +20,7 @@ const searchedDestination = location.state?.searchedDestination
 const destinations = location.state?.destinations
 const [currency, setCurrency] = useState(null)
 const [favorite, setFavorite] = useState(false)
+const [favoriteMessage, setFavoriteMessage] = useState("")
 
 useEffect(() => {
   if (!destination?.country_code) return
@@ -69,16 +70,25 @@ const handleFavorite = () => {
   if (favorite) {
     removeFavorite(destination.id)
     setFavorite(false)
+    setFavoriteMessage("Removed from favorites")
   } else {
     saveFavorite(destination)
     setFavorite(true)
+    setFavoriteMessage("Added to favorites")
   }
+
+  setTimeout(() => setFavoriteMessage(""), 4000)
 }
 
   return (
     <main className="min-h-screen bg-sky-50 px-5 py-10">
       <div className="mx-auto max-w-7xl">
-
+        {favoriteMessage && (
+          <div className="fixed right-6 top-24 z-[1100] rounded-xl border border-sky-100 bg-white px-5 py-3 text-sm font-semibold text-slate-800 shadow-lg">
+            <i className={`mr-2 ${favorite ? "fa-solid fa-heart text-red-500" : "fa-regular fa-heart text-slate-500"}`}></i>
+            {favoriteMessage}
+          </div>
+        )}
         <div className="mb-8">
           <button onClick={() => navigate("/explore", { state: { searchedDestination, destinations },})}
             className="mb-5 inline-flex cursor-pointer items-center gap-2 text-sm font-semibold text-slate-900 transition duration-200 hover:text-sky-600">
