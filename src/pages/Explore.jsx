@@ -12,12 +12,21 @@ function Explore() {
   const [destinations, setDestinations] = useState(location.state?.destinations || [])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
+  const [favoriteMessage, setFavoriteMessage] = useState("")
+  const [favoriteAdded, setFavoriteAdded] = useState(false)
 
   useEffect(() => {
   if (location.state) {
     navigate(location.pathname, { replace: true, state: null })
   }
 }, [])
+
+  const handleFavoriteMessage = (message, added) => {
+    setFavoriteMessage(message)
+    setFavoriteAdded(added)
+
+    setTimeout(() => setFavoriteMessage(""), 4000)
+  }
 
   const handleSearch = async (query) => {
   setSearchedDestination(query)
@@ -44,6 +53,13 @@ setDestinations(destinationsWithImages)
   return (
     <main className="min-h-screen bg-sky-50 px-5 py-12">
       <div className="mx-auto max-w-7xl">
+
+        {favoriteMessage && (
+          <div className="fixed right-6 top-24 z-[1100] rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-800 shadow-lg">
+            <i className={`mr-2 ${favoriteAdded ? "fa-solid text-red-500" : "fa-regular text-slate-500"} fa-heart`}></i>
+            {favoriteMessage}
+          </div>
+        )}
 
         <div className="text-center">
           <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 md:text-5xl">
@@ -76,6 +92,7 @@ setDestinations(destinationsWithImages)
                       image={destination.image}
                       searchedDestination={searchedDestination}
                       destinations={destinations}
+                      onFavoriteMessage={handleFavoriteMessage}
                     />
                   ))}
                 </div>
