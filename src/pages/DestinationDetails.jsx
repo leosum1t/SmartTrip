@@ -80,6 +80,19 @@ const handleFavorite = () => {
   setTimeout(() => setFavoriteMessage(""), 4000)
 }
 
+const handlePlanTrip = () => {
+  if (!destination) return
+
+  navigate("/trip-planner", {
+    state: {
+      destinationName: `${destination.name}, ${destination.country}`,
+      destination,
+      searchedDestination,
+      destinations,
+    },
+  })
+}
+
   return (
     <main className="min-h-screen bg-sky-50 px-5 py-10">
       <div className="mx-auto max-w-7xl">
@@ -119,11 +132,18 @@ const handleFavorite = () => {
                 <p className="mt-2 text-slate-500">{destination?.admin1 ? `${destination.admin1}, ` : ""}{destination?.country}</p>
               </div>
 
-              <button onClick={handleFavorite}
-                className="flex cursor-pointer items-center gap-2 rounded-xl border border-sky-200 px-4 py-2 text-sm font-semibold text-slate-900 transition duration-200 hover:border-sky-600 hover:text-sky-600">
-                <i className={`${favorite ? "fa-solid" : "fa-regular"} fa-heart ${favorite ? "text-red-500" : ""}`}></i>
-                {favorite ? "Saved" : "Save"}
-              </button>
+              <div className="flex items-center gap-3">
+                <button onClick={handlePlanTrip}
+                  className="flex cursor-pointer items-center gap-2 rounded-xl border border-sky-200 px-4 py-2 text-sm font-semibold text-slate-900 transition duration-200 hover:border-sky-600 hover:text-sky-600">
+                  Plan Trip
+                </button>
+
+                <button onClick={handleFavorite}
+                  className="flex cursor-pointer items-center gap-2 rounded-xl border border-sky-200 px-4 py-2 text-sm font-semibold text-slate-900 transition duration-200 hover:border-sky-600 hover:text-sky-600">
+                  <i className={`${favorite ? "fa-solid" : "fa-regular"} fa-heart ${favorite ? "text-red-500" : ""}`}></i>
+                  {favorite ? "Saved" : "Save"}
+                </button>
+              </div>
             </div>
           </section>
           <div className="space-y-6">

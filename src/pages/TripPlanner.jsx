@@ -1,8 +1,14 @@
+import { useLocation, useNavigate } from "react-router-dom"
 import { useState } from "react"
 import { saveTrip } from "../utils/tripUtils"
 
 function TripPlanner() {
-  const [destination, setDestination] = useState("")
+  const location = useLocation()
+  const navigate = useNavigate()
+  const selectedDestination = location.state?.destination
+  const searchedDestination = location.state?.searchedDestination
+  const destinations = location.state?.destinations
+  const [destination, setDestination] = useState(location.state?.destinationName || "")
   const [startDate, setStartDate] = useState("")
   const [endDate, setEndDate] = useState("")
   const [travelers, setTravelers] = useState("")
@@ -10,6 +16,7 @@ function TripPlanner() {
   const [notes, setNotes] = useState("")
   const [error, setError] = useState("")
   const [message, setMessage] = useState("")
+
 
   const showError = (text) => {
     setError(text)
@@ -80,6 +87,16 @@ function TripPlanner() {
             <i className="fa-solid fa-circle-exclamation mr-2 text-red-500"></i>
             {error}
           </div>
+        )}
+        
+        {selectedDestination && (
+        <button onClick={() => navigate(`/destination/${selectedDestination.id}`, {
+            state: { destination: selectedDestination, searchedDestination, destinations },
+        })}
+            className="mb-5 inline-flex cursor-pointer items-center gap-2 text-sm font-semibold text-slate-900 transition duration-200 hover:text-sky-600">
+            <i className="fa-solid fa-arrow-left"></i>
+            Back to Destination
+        </button>
         )}
 
         <div className="mb-8">
