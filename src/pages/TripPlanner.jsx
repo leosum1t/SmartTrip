@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { saveTrip } from "../utils/tripUtils"
 
 function TripPlanner() {
   const [destination, setDestination] = useState("")
@@ -8,35 +9,78 @@ function TripPlanner() {
   const [budget, setBudget] = useState("")
   const [notes, setNotes] = useState("")
   const [error, setError] = useState("")
+  const [message, setMessage] = useState("")
+
+  const showError = (text) => {
+    setError(text)
+    setTimeout(() => setError(""), 4000)
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
     setError("")
+    setMessage("")
 
     if (!destination || !startDate || !endDate || !travelers) {
-      setError("Please fill in all required fields.")
+      showError("Please fill in all required fields.")
       return
     }
 
     if (new Date(endDate) < new Date(startDate)) {
-      setError("End date cannot be before start date.")
+      showError("End date cannot be before start date.")
       return
     }
 
     if (Number(travelers) < 1) {
-      setError("Travelers must be at least 1.")
+      showError("Travelers must be at least 1.")
       return
     }
 
     if (budget && Number(budget) < 0) {
-      setError("Budget cannot be negative.")
+      showError("Budget cannot be negative.")
       return
     }
+
+    const trip = {
+      id: Date.now(),
+      destination,
+      startDate,
+      endDate,
+      travelers: Number(travelers),
+      budget: budget ? Number(budget) : 0,
+      notes,
+    }
+
+    saveTrip(trip)
+
+    setMessage("Trip saved successfully")
+    setDestination("")
+    setStartDate("")
+    setEndDate("")
+    setTravelers("")
+    setBudget("")
+    setNotes("")
+
+    setTimeout(() => setMessage(""), 4000)
   }
 
   return (
     <main className="min-h-screen bg-sky-50 px-5 py-12">
       <div className="mx-auto max-w-5xl">
+
+        {message && (
+          <div className="fixed right-6 top-24 z-[1100] rounded-xl border border-green-100 bg-white px-5 py-3 text-sm font-semibold text-slate-800 shadow-lg">
+            <i className="fa-solid fa-circle-check mr-2 text-green-500"></i>
+            {message}
+          </div>
+        )}
+
+        {error && (
+          <div className="fixed right-6 top-24 z-[1100] rounded-xl border border-red-100 bg-white px-5 py-3 text-sm font-semibold text-slate-800 shadow-lg">
+            <i className="fa-solid fa-circle-exclamation mr-2 text-red-500"></i>
+            {error}
+          </div>
+        )}
 
         <div className="mb-8">
           <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 md:text-4xl">
@@ -86,8 +130,6 @@ function TripPlanner() {
               </div>
 
             </div>
-
-            {error && <p className="mt-4 text-sm text-red-400">{error}</p>}
 
             <div className="mt-6 flex justify-end">
               <button type="submit"
