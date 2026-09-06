@@ -16,3 +16,13 @@ export function deleteTrip(tripId) {
     const updatedTrips = trips.filter((trip) => trip.id !== tripId)
     localStorage.setItem(TRIPS_KEY, JSON.stringify(updatedTrips))
 }
+
+export function updateTrip(updatedTrip) {
+    const trips = getTrips()
+
+    const updatedTrips = trips.map((trip) =>
+        trip.id === updatedTrip.id ? updatedTrip : trip
+    )
+
+    localStorage.setItem(TRIPS_KEY, JSON.stringify(updatedTrips))
+}

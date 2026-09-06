@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom"
 import { useState } from "react"
-import { saveTrip } from "../utils/tripUtils"
+import { saveTrip, updateTrip } from "../utils/tripUtils"
 
 function TripPlanner() {
   const location = useLocation()
@@ -8,15 +8,16 @@ function TripPlanner() {
   const selectedDestination = location.state?.destination
   const searchedDestination = location.state?.searchedDestination
   const destinations = location.state?.destinations
-  const [destination, setDestination] = useState(location.state?.destinationName || "")
-  const [startDate, setStartDate] = useState("")
-  const [endDate, setEndDate] = useState("")
-  const [travelers, setTravelers] = useState("")
-  const [budget, setBudget] = useState("")
-  const [notes, setNotes] = useState("")
+  const editTrip = location.state?.editTrip
+
+  const [destination, setDestination] = useState(editTrip?.destination || location.state?.destinationName || "")
+  const [startDate, setStartDate] = useState(editTrip?.startDate || "")
+  const [endDate, setEndDate] = useState(editTrip?.endDate || "")
+  const [travelers, setTravelers] = useState(editTrip?.travelers || "")
+  const [budget, setBudget] = useState(editTrip?.budget || "")
+  const [notes, setNotes] = useState(editTrip?.notes || "")
   const [error, setError] = useState("")
   const [message, setMessage] = useState("")
-
 
   const showError = (text) => {
     setError(text)
@@ -47,30 +48,38 @@ function TripPlanner() {
       showError("Budget cannot be negative.")
       return
     }
-
     const trip = {
-      id: Date.now(),
-      destination,
-      startDate,
-      endDate,
-      travelers: Number(travelers),
-      budget: budget ? Number(budget) : 0,
-      notes,
-    }
+    id: editTrip ? editTrip.id : Date.now(),
+    destination,
+    startDate,
+    endDate,
+    travelers: Number(travelers),
+    budget: budget ? Number(budget) : 0,
+    notes,
+  }
 
+  if (editTrip) {
+    updateTrip(trip)
+    setMessage("Trip updated successfully")
+
+    setTimeout(() => {
+      navigate("/trips")
+    }, 1200)
+  } else {
     saveTrip(trip)
-
     setMessage("Trip saved successfully")
+
     setDestination("")
     setStartDate("")
     setEndDate("")
     setTravelers("")
     setBudget("")
     setNotes("")
-
-    setTimeout(() => setMessage(""), 4000)
+  }
+  setTimeout(() => setMessage(""), 4000)
   }
 
+  
   return (
     <main className="min-h-screen bg-sky-50 px-5 py-12">
       <div className="mx-auto max-w-5xl">
@@ -89,19 +98,26 @@ function TripPlanner() {
           </div>
         )}
         
-        {selectedDestination && (
-        <button onClick={() => navigate(`/destination/${selectedDestination.id}`, {
+        {editTrip ? (
+          <button onClick={() => navigate("/trips")}
+            className="mb-5 inline-flex cursor-pointer items-center gap-2 text-sm font-semibold text-slate-900 transition duration-200 hover:text-sky-600">
+            <i className="fa-solid fa-arrow-left"></i>
+            Back to Trips
+          </button>
+        ) : selectedDestination ? (
+          <button onClick={() => navigate(`/destination/${selectedDestination.id}`, {
             state: { destination: selectedDestination, searchedDestination, destinations },
-        })}
+          })}
             className="mb-5 inline-flex cursor-pointer items-center gap-2 text-sm font-semibold text-slate-900 transition duration-200 hover:text-sky-600">
             <i className="fa-solid fa-arrow-left"></i>
             Back to Destination
-        </button>
-        )}
+          </button>
+        ) : null}
 
         <div className="mb-8">
-          <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 md:text-4xl">
-            Plan Your <span className="text-sky-600">Trip</span>
+           <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 md:text-4xl">
+            {editTrip ? "Edit Your " : "Plan Your "}
+            <span className="text-sky-600">Trip</span>
           </h1>
         </div>
 
@@ -151,7 +167,7 @@ function TripPlanner() {
             <div className="mt-6 flex justify-end">
               <button type="submit"
                 className="cursor-pointer rounded-xl border-2 border-sky-600 bg-transparent px-6 py-2.5 font-semibold text-slate-900 transition duration-200 hover:bg-sky-600 hover:text-white">
-                Save Trip
+                {editTrip ? "Update Trip" : "Save Trip"}
               </button>
             </div>
           </form>

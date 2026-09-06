@@ -34,6 +34,14 @@ function Trips() {
     setTimeout(() => setMessage(""), 4000)
   }
 
+  const handleEdit = (trip) => {
+  navigate("/trip-planner", {
+    state: {
+      editTrip: trip,
+    },
+  })
+}
+
   const TripTable = ({ data, status }) => (
     <>
       <div className="hidden overflow-hidden rounded-3xl border border-sky-100 bg-white shadow-sm md:block">
@@ -87,7 +95,7 @@ function Trips() {
 
                   <td className="px-6 py-5">
                     <div className="flex justify-end gap-3">
-                      <button type="button"
+                      <button type="button" onClick={() => handleEdit(trip)}
                         className="cursor-pointer rounded-lg border border-sky-200 px-3 py-2 text-sm font-semibold text-slate-700 transition hover:border-sky-500 hover:text-sky-600">
                         <i className="fa-regular fa-pen-to-square mr-2"></i>
                         Edit
@@ -142,7 +150,7 @@ function Trips() {
             </div>
 
             <div className="mt-5 flex gap-3">
-              <button type="button"
+              <button type="button" onClick={() => handleEdit(trip)}
                 className="flex-1 cursor-pointer rounded-xl border border-sky-200 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-sky-500 hover:text-sky-600">
                 <i className="fa-regular fa-pen-to-square mr-2"></i>
                 Edit
