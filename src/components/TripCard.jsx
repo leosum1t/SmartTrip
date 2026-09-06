@@ -48,13 +48,13 @@ function TripCard({ trip }) {
           </div>
 
           <div className="flex items-center">
-            <span className="h-px w-6 bg-sky-200 sm:w-10"></span>
+            <span className="w-6 border-t border-dashed border-sky-300 sm:w-10"></span>
 
             <div className="mx-2 flex h-8 w-8 items-center justify-center rounded-full bg-sky-50 text-xs text-sky-600">
               <i className="fa-solid fa-plane"></i>
             </div>
 
-            <span className="h-px w-6 bg-sky-200 sm:w-10"></span>
+            <span className="w-6 border-t border-dashed border-sky-300 sm:w-10"></span>
           </div>
 
           <div className="text-right">

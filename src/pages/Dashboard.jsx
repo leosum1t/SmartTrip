@@ -114,19 +114,14 @@ function Dashboard() {
             </div>
           </div>
         </section>
-          {upcomingTrips.length > 0 && (
+        {upcomingTrips.length > 0 && (
           <section className="mt-10">
-            <div className="mb-5 flex items-center justify-between">
+            <div className="mb-5">
               <h2 className="text-xl font-bold text-slate-900">Upcoming Trips</h2>
-
-              <div className="flex items-center gap-2 text-sm text-slate-400">
-                <i className="fa-solid fa-route text-sky-500"></i>
-                {upcomingTrips.length} {upcomingTrips.length === 1 ? "trip" : "trips"}
-              </div>
             </div>
 
             <div className="grid gap-6 lg:grid-cols-2">
-              {upcomingTrips.map((trip) => (
+              {upcomingTrips.slice(0, 2).map((trip) => (
                 <TripCard key={trip.id} trip={trip} />
               ))}
             </div>
