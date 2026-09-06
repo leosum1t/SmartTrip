@@ -7,6 +7,7 @@ import Dashboard from "./pages/Dashboard"
 import NotFound from "./pages/NotFound"
 import DestinationDetails from "./pages/DestinationDetails"
 import TripPlanner from "./pages/TripPlanner"
+import Trips from "./pages/Trips"
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/destination/:id" element={<DestinationDetails />} />
         <Route path="/trip-planner" element={<TripPlanner />} />
+        <Route path="/trips" element={<Trips />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

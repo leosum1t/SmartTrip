@@ -2,10 +2,12 @@ import TripCard from "../components/TripCard"
 import { useEffect, useState } from "react"
 import { getFavorites } from "../utils/favoriteUtils"
 import { getTrips } from "../utils/tripUtils"
+import { useNavigate } from "react-router-dom"
 
 function Dashboard() {
   const [favorites, setFavorites] = useState([])
   const [trips, setTrips] = useState([])
+  const navigate = useNavigate()
 
   useEffect(() => {
     setFavorites(getFavorites())
@@ -59,8 +61,9 @@ function Dashboard() {
             </div>
           </div>
 
-          <div className="group relative overflow-hidden rounded-3xl border border-sky-100 bg-gradient-to-br from-white to-sky-50 p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-md">
-            <div className="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-sky-100/70"></div>
+          <div onClick={() => navigate("/trips")}
+          className="group relative cursor-pointer overflow-hidden rounded-3xl border border-sky-100 bg-gradient-to-br from-white to-sky-50 p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-md">
+  
 
             <div className="relative flex items-center justify-between">
               <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-100 text-sky-600 shadow-sm">
