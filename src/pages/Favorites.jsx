@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react"
 import { getFavorites, removeFavorite } from "../utils/favoriteUtils"
 import FavoriteCard from "../components/FavoriteCard"
+import { useLocation, useNavigate } from "react-router-dom"
 
 function Favorites() {
   const [favorites, setFavorites] = useState([])
   const [message, setMessage] = useState("")
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  const fromDashboard = location.state?.fromDashboard
 
   useEffect(() => {
     setFavorites(getFavorites())
@@ -28,6 +33,14 @@ function Favorites() {
           </div>
         )}
 
+        {fromDashboard && (
+          <button onClick={() => navigate("/dashboard")}
+            className="mb-5 inline-flex cursor-pointer items-center gap-2 text-sm font-semibold text-slate-900 transition duration-200 hover:text-sky-600">
+            <i className="fa-solid fa-arrow-left"></i>
+            Back to Dashboard
+          </button>
+        )}
+        
         <div className="mb-8">
           <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 md:text-4xl">
             Saved <span className="text-sky-600">Destinations</span>

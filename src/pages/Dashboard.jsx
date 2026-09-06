@@ -38,8 +38,8 @@ function Dashboard() {
 
         <section className="grid gap-5 md:grid-cols-2 lg:grid-cols-[1fr_1fr_1.4fr]">
 
-          <div className="group relative overflow-hidden rounded-3xl border border-red-100 bg-gradient-to-br from-white to-red-50 p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-md">
-            <div className="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-red-100/60"></div>
+          <div onClick={() => navigate("/favorites", {state: { fromDashboard: true }})}
+          className="group relative cursor-pointer overflow-hidden rounded-3xl border border-red-100 bg-gradient-to-br from-white to-red-50 p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-md">
 
             <div className="relative flex items-center justify-between">
               <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-red-100 text-red-500 shadow-sm">
