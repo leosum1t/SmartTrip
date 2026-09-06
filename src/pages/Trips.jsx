@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
-import { getTrips } from "../utils/tripUtils"
+import { deleteTrip, getTrips } from "../utils/tripUtils"
 import { useNavigate } from "react-router-dom"
 
 function Trips() {
   const [trips, setTrips] = useState([])
   const navigate = useNavigate()
+  const [message, setMessage] = useState("")
 
   useEffect(() => {
     setTrips(getTrips())
@@ -24,6 +25,14 @@ function Trips() {
       day: "numeric",
       year: "numeric",
     })
+
+  const handleDelete = (tripId) => {
+    deleteTrip(tripId)
+    setTrips(getTrips())
+    setMessage("Trip deleted successfully")
+
+    setTimeout(() => setMessage(""), 4000)
+  }
 
   const TripTable = ({ data, status }) => (
     <>
@@ -84,7 +93,7 @@ function Trips() {
                         Edit
                       </button>
 
-                      <button type="button"
+                      <button type="button" onClick={() => handleDelete(trip.id)}
                         className="cursor-pointer rounded-lg border border-red-100 px-3 py-2 text-sm font-semibold text-red-500 transition hover:border-red-300 hover:bg-red-50">
                         <i className="fa-regular fa-trash-can mr-2"></i>
                         Delete
@@ -139,7 +148,7 @@ function Trips() {
                 Edit
               </button>
 
-              <button type="button"
+              <button type="button" onClick={() => handleDelete(trip.id)}
                 className="flex-1 cursor-pointer rounded-xl border border-red-100 px-4 py-2 text-sm font-semibold text-red-500 transition hover:border-red-300 hover:bg-red-50">
                 <i className="fa-regular fa-trash-can mr-2"></i>
                 Delete
@@ -155,6 +164,13 @@ function Trips() {
   return (
     <main className="min-h-screen bg-sky-50 px-5 py-12">
       <div className="mx-auto max-w-7xl">
+
+        {message && (
+          <div className="fixed right-6 top-24 z-[1100] rounded-xl border border-red-100 bg-white px-5 py-3 text-sm font-semibold text-slate-800 shadow-lg">
+            <i className="fa-regular fa-trash-can mr-2 text-red-500"></i>
+            {message}
+          </div>
+        )}
 
         <button onClick={() => navigate("/dashboard")}
           className="mb-5 inline-flex cursor-pointer items-center gap-2 text-sm font-semibold text-slate-900 transition duration-200 hover:text-sky-600">
