@@ -36,17 +36,11 @@ function Home() {
               Discover destinations, check weather, explore maps and plan unforgettable journeys with SmartYatra.
             </p>
 
-            <div className="mt-8 flex flex-wrap items-center gap-4">
+            <div className="mt-8">
               <button onClick={() => navigate("/explore")}
-                className="group cursor-pointer rounded-xl bg-sky-500 px-6 py-3 font-semibold text-white shadow-lg shadow-sky-950/20 transition duration-300 hover:-translate-y-0.5 hover:bg-sky-400">
+                className="group cursor-pointer rounded-xl border border-white/40 bg-white/10 px-6 py-3 font-semibold text-white backdrop-blur-sm transition duration-300 hover:bg-white/20">
                 Explore Destinations
                 <i className="fa-solid fa-arrow-right ml-2 transition duration-300 group-hover:translate-x-1"></i>
-              </button>
-
-              <button onClick={() => navigate("/trip-planner")}
-                className="cursor-pointer rounded-xl border border-white/40 bg-white/10 px-6 py-3 font-semibold text-white backdrop-blur-sm transition duration-300 hover:bg-white/20">
-                <i className="fa-regular fa-map mr-2"></i>
-                Plan a Trip
               </button>
             </div>
           </div>
@@ -261,6 +255,48 @@ function Home() {
               </div>
             </div>
 
+          </div>
+        </div>
+      </section>
+      <section className="bg-white px-5 pb-16">
+        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[2rem]">
+          <img src={slideImage} alt="Travel adventure" className="absolute inset-0 h-full w-full object-cover" />
+
+          <div className="absolute inset-0 bg-slate-950/55"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/70 via-slate-900/30 to-transparent"></div>
+
+          <div className="relative flex min-h-[420px] items-center px-7 py-14 sm:px-10 md:px-14 lg:px-16">
+            <div className="max-w-2xl text-white">
+              <div className="mb-5 flex items-center gap-3">
+                <span className="h-px w-10 bg-sky-300"></span>
+                <p className="text-xs font-bold uppercase tracking-[0.3em] text-sky-200">
+                  Your Journey Starts Here
+                </p>
+              </div>
+
+              <h2 className="text-4xl font-extrabold leading-tight tracking-tight md:text-5xl">
+                The world is waiting.
+                <span className="block text-sky-300">Where will you go next?</span>
+              </h2>
+
+              <p className="mt-5 max-w-xl text-sm leading-7 text-white/75 md:text-base">
+                Discover somewhere new, save the places that inspire you and turn your next idea into a journey.
+              </p>
+
+              <div className="mt-8">
+                <button onClick={() => navigate("/explore")}
+                  className="group cursor-pointer rounded-xl border border-white/40 bg-white/10 px-6 py-3 font-semibold text-white backdrop-blur-sm transition duration-300 hover:bg-white/20">
+                  Explore Destinations
+                  <i className="fa-solid fa-arrow-right ml-2 transition duration-300 group-hover:translate-x-1"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className="absolute bottom-6 right-7 hidden items-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-white/50 md:flex">
+            SmartYatra
+            <span className="h-px w-12 bg-white/30"></span>
+            Explore More
           </div>
         </div>
       </section>
