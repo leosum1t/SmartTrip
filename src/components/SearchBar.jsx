@@ -11,13 +11,24 @@ function SearchBar({ onSearch }) {
 
   return (
     <form onSubmit={handleSubmit} className="mx-auto mt-10 max-w-5xl px-2">
-     <div className="flex items-center gap-1 rounded-xl border border-sky-200 bg-white p-1.5 shadow-sm transition duration-200 focus-within:border-sky-400 focus-within:shadow-md">
+      <div className="flex items-center gap-3">
 
-        <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search city or country..." className="w-full bg-transparent px-4 py-2.5 text-slate-700 outline-none placeholder:text-slate-400" />
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search city or country..."
+          className="w-full border border-sky-300 bg-white/90 px-4 py-2.5 text-slate-700 outline-none backdrop-blur-sm transition duration-200 placeholder:text-slate-400 focus:border-sky-500"
+        />
 
-        <button type="submit" className="rounded-lg bg-sky-600 px-5 py-2.5 font-semibold text-white transition duration-200 hover:bg-sky-700 sm:px-7">
+        <button
+          type="submit"
+          className="group flex shrink-0 cursor-pointer items-center border border-sky-400 bg-white/90 px-7 py-2.5 font-semibold text-slate-800 backdrop-blur-sm transition duration-200 hover:bg-sky-500 hover:text-white"
+        >
           Search
+          <i className="fa-solid fa-arrow-right ml-2 transition duration-200 group-hover:translate-x-1"></i>
         </button>
+
       </div>
     </form>
   )
