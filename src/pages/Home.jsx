@@ -159,7 +159,111 @@ function Home() {
             </div>
           </div>
         </section>
-            
+       <section className="overflow-hidden bg-white px-5 py-16">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-12 text-center">
+            <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 md:text-4xl">
+              How <span className="text-sky-600">SmartYatra</span> Works
+            </h2>
+          </div>
+
+          <div className="grid gap-x-16 gap-y-14 md:grid-cols-2">
+
+            <div className="group relative min-h-[220px]">
+              <span className="absolute right-0 top-0 text-7xl font-black leading-none text-sky-100">01</span>
+
+              <div className="relative">
+                <div className="mb-4 flex items-center gap-3">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-full bg-sky-100 text-sky-600">
+                    <i className="fa-solid fa-compass"></i>
+                  </div>
+
+                  <span className="text-xs font-bold uppercase tracking-[0.3em] text-sky-600">Discover</span>
+                  <span className="h-px w-16 bg-sky-200"></span>
+                </div>
+
+                <h3 className="max-w-sm text-3xl font-extrabold leading-tight text-slate-900">
+                  Find somewhere <span className="text-sky-600">worth going.</span>
+                </h3>
+
+                <p className="mt-4 max-w-md text-sm leading-6 text-slate-500">
+                  Search destinations and discover the place that could become your next adventure.
+                </p>
+              </div>
+            </div>
+
+            <div className="group relative min-h-[220px]">
+              <span className="absolute right-0 top-0 text-7xl font-black leading-none text-emerald-100">02</span>
+
+              <div className="relative">
+                <div className="mb-4 flex items-center gap-3">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+                    <i className="fa-solid fa-location-dot"></i>
+                  </div>
+
+                  <span className="text-xs font-bold uppercase tracking-[0.3em] text-emerald-600">Explore</span>
+                  <span className="h-px w-16 bg-emerald-200"></span>
+                </div>
+
+                <h3 className="max-w-sm text-3xl font-extrabold leading-tight text-slate-900">
+                  Know before <span className="text-emerald-600">you go.</span>
+                </h3>
+
+                <p className="mt-4 max-w-md text-sm leading-6 text-slate-500">
+                  Check weather, forecasts, maps and currency so you know what to expect.
+                </p>
+              </div>
+            </div>
+
+            <div className="group relative min-h-[220px]">
+              <span className="absolute right-0 top-0 text-7xl font-black leading-none text-red-100">03</span>
+
+              <div className="relative">
+                <div className="mb-4 flex items-center gap-3">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-full bg-red-100 text-red-500">
+                    <i className="fa-solid fa-heart"></i>
+                  </div>
+
+                  <span className="text-xs font-bold uppercase tracking-[0.3em] text-red-500">Save</span>
+                  <span className="h-px w-16 bg-red-200"></span>
+                </div>
+
+                <h3 className="max-w-sm text-3xl font-extrabold leading-tight text-slate-900">
+                  Keep what <span className="text-red-500">inspires you.</span>
+                </h3>
+
+                <p className="mt-4 max-w-md text-sm leading-6 text-slate-500">
+                  Save the destinations you love and keep your travel ideas close.
+                </p>
+              </div>
+            </div>
+
+            <div className="group relative min-h-[220px]">
+              <span className="absolute right-0 top-0 text-7xl font-black leading-none text-violet-100">04</span>
+
+              <div className="relative">
+                <div className="mb-4 flex items-center gap-3">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-full bg-violet-100 text-violet-600">
+                    <i className="fa-solid fa-plane-departure"></i>
+                  </div>
+
+                  <span className="text-xs font-bold uppercase tracking-[0.3em] text-violet-600">Plan & Go</span>
+                  <span className="h-px w-16 bg-violet-200"></span>
+                </div>
+
+                <h3 className="max-w-sm text-3xl font-extrabold leading-tight text-slate-900">
+                  Turn ideas into <span className="text-violet-600">a journey.</span>
+                </h3>
+
+                <p className="mt-4 max-w-md text-sm leading-6 text-slate-500">
+                  Set dates, travelers and budget, then manage your journey from the dashboard.
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
     </main>
   )
 }
