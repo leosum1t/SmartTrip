@@ -11,16 +11,32 @@ function Trips() {
     setTrips(getTrips())
   }, [])
 
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+
   const upcomingTrips = trips
-    .filter((trip) => new Date(trip.startDate) >= new Date())
-    .sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
+  .filter((trip) => {
+    const startDate = new Date(`${trip.startDate}T00:00:00`)
+    return startDate >= today
+  })
+  .sort(
+    (a, b) =>
+      new Date(`${a.startDate}T00:00:00`) -
+      new Date(`${b.startDate}T00:00:00`)
+  )
 
   const pastTrips = trips
-    .filter((trip) => new Date(trip.startDate) < new Date())
-    .sort((a, b) => new Date(b.startDate) - new Date(a.startDate))
-
+  .filter((trip) => {
+    const startDate = new Date(`${trip.startDate}T00:00:00`)
+    return startDate < today
+  })
+  .sort(
+    (a, b) =>
+      new Date(`${b.startDate}T00:00:00`) -
+      new Date(`${a.startDate}T00:00:00`)
+  )
   const formatDate = (date) =>
-    new Date(date).toLocaleDateString("en-US", {
+    new Date(`${date}T00:00:00`).toLocaleDateString("en-US", {
       month: "short",
       day: "numeric",
       year: "numeric",
