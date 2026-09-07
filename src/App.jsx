@@ -8,6 +8,7 @@ import NotFound from "./pages/NotFound"
 import DestinationDetails from "./pages/DestinationDetails"
 import TripPlanner from "./pages/TripPlanner"
 import Trips from "./pages/Trips"
+import Footer from "./components/Footer"
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/trips" element={<Trips />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+       <Footer />
     </BrowserRouter>
   )
 }
