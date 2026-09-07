@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { getFavorites } from "../utils/favoriteUtils"
 import { getTrips } from "../utils/tripUtils"
 import { useNavigate } from "react-router-dom"
+import SavedDestinationCard from "../components/SavedDestinationCard"
 
 function Dashboard() {
   const [favorites, setFavorites] = useState([])
@@ -130,6 +131,25 @@ function Dashboard() {
             </div>
           </section>
         )}
+        {favorites.length > 0 && (
+        <section className="mt-10">
+          <div className="mb-5 flex items-center justify-between">
+            <h2 className="text-xl font-bold text-slate-900">Saved Destinations</h2>
+
+            <button onClick={() => navigate("/favorites", { state: { fromDashboard: true } })}
+              className="cursor-pointer text-sm font-semibold text-sky-600 transition hover:text-sky-700">
+              View All
+              <i className="fa-solid fa-arrow-right ml-2"></i>
+            </button>
+          </div>
+
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {favorites.slice(0, 3).map((destination) => (
+              <SavedDestinationCard key={destination.id} destination={destination} />
+            ))}
+          </div>
+        </section>
+      )}
       </div>
     </main>
   )
