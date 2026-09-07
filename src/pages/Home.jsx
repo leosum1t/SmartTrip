@@ -3,6 +3,7 @@ import heroImage from "../assets/home-hero.png"
 import kathmanduImage from "../assets/kathmandu.png"
 import parisImage from "../assets/paris.png"
 import tokyoImage from "../assets/tokyo.png"
+import slideImage from "../assets/slide.png"
 
 function Home() {
   const navigate = useNavigate()
@@ -12,7 +13,6 @@ function Home() {
     { name: "Tokyo", country: "Japan", image: tokyoImage },
     { name: "Paris", country: "France", image: parisImage },
   ]
-
   return (
     <main className="min-h-screen bg-sky-50">
       <section className="relative min-h-[calc(100vh-70px)] overflow-hidden">
@@ -98,8 +98,69 @@ function Home() {
           </div>
         </div>
       </section>
+      <section className="bg-sky-50 px-5 py-16">
+          <div className="mx-auto max-w-7xl">
+            <div className="mb-10 text-center">
+              <p className="text-sm font-bold uppercase tracking-[0.25em] text-sky-600">Smart Travel Tools</p>
+              <h2 className="mt-2 text-3xl font-extrabold tracking-tight text-slate-900 md:text-4xl">
+                Everything You Need to <span className="text-sky-600">Travel Smarter</span>
+              </h2>
+            </div>
+
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {[
+                {
+                  title: "Weather & Forecast",
+                  text: "Check current weather and upcoming forecasts before you travel.",
+                  icon: "fa-solid fa-cloud-sun",
+                  box: "bg-sky-100 text-sky-600",
+                },
+                {
+                  title: "Interactive Maps",
+                  text: "Explore destination locations and understand the surrounding area.",
+                  icon: "fa-solid fa-map-location-dot",
+                  box: "bg-emerald-100 text-emerald-600",
+                },
+                {
+                  title: "Currency Converter",
+                  text: "Convert currencies quickly while planning your travel budget.",
+                  icon: "fa-solid fa-coins",
+                  box: "bg-amber-100 text-amber-600",
+                },
+                {
+                  title: "Save Favorites",
+                  text: "Save destinations you love and revisit them whenever you want.",
+                  icon: "fa-solid fa-heart",
+                  box: "bg-red-100 text-red-500",
+                },
+                {
+                  title: "Trip Planner",
+                  text: "Organize your destination, dates, travelers, budget and notes.",
+                  icon: "fa-solid fa-suitcase-rolling",
+                  box: "bg-violet-100 text-violet-600",
+                },
+                {
+                  title: "Travel Dashboard",
+                  text: "Keep saved places and planned journeys together in one place.",
+                  icon: "fa-solid fa-chart-simple",
+                  box: "bg-slate-100 text-slate-700",
+                },
+              ].map((tool) => (
+                <div key={tool.title}
+                  className="rounded-3xl border border-sky-100 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-md">
+                  <div className={`flex h-12 w-12 items-center justify-center rounded-2xl text-lg ${tool.box}`}>
+                    <i className={tool.icon}></i>
+                  </div>
+
+                  <h3 className="mt-5 text-lg font-bold text-slate-900">{tool.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-500">{tool.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+            
     </main>
   )
 }
-
 export default Home
