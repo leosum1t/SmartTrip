@@ -1,18 +1,21 @@
-# SmartTrip
+# SmartYatra
 
-SmartTrip is a React-based travel planning web application that helps users explore destinations using live external API data.
+SmartYatra is a React-based travel planning web application that helps users discover destinations, access useful travel information, save favorite places, plan trips, and manage their journeys through a personal dashboard.
 
-## Planned Features
+## Live Demo
+
+https://smart-yaatra.vercel.app/
+
+## Features
 
 - Destination search and exploration
-- Destination details
-- Current weather and forecast
-- Interactive maps
+- Detailed destination information
+- Current weather and weather forecast
+- Interactive maps and location information
 - Currency conversion
 - Favorite destinations
+- Trip planning and management
 - Personal travel dashboard
-- Responsive design
-- Loading and error handling
 
 ## Tech Stack
 
@@ -21,9 +24,91 @@ SmartTrip is a React-based travel planning web application that helps users expl
 - Vite
 - Tailwind CSS
 - React Router
+- Font Awesome
 - Fetch API
 - localStorage
 
-## Development Status
+## APIs & Services
 
-SmartTrip is currently under development as part of a frontend internship project.
+- **Open-Meteo Geocoding API** — destination search and location data
+- **Open-Meteo Weather API** — current weather and forecast
+- **Pexels API** — destination images
+- **Frankfurter API** — currency conversion
+- **Leaflet** — interactive destination maps
+
+## Getting Started
+
+Clone the repository:
+
+```bash
+git clone https://github.com/leosum1t/SmartTrip.git
+```
+
+Navigate to the project:
+
+```bash
+cd smarttrip
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Create a `.env` file in the project root:
+
+```env
+VITE_PEXELS_API_KEY=your_pexels_api_key
+```
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+## Production Build
+
+```bash
+npm run build
+npm run preview
+```
+
+## Deployment
+
+SmartYatra is deployed on Vercel.
+
+**Live Application:** https://smart-yaatra.vercel.app/
+
+## Future Improvements
+
+- User authentication
+- Cloud-based storage
+- Personalized destination recommendations
+- Hotel and flight information
+- Advanced trip budgeting
+
+## Author
+
+**Sumit Pokharel**
+
+GitHub: https://github.com/leosum1t
+
+## Screenshots
+
+### Home
+
+![SmartYatra Home](./screenshots/home.png)
+
+### Explore
+
+![SmartYatra Explore](./screenshots/explore.png)
+
+### Destination Details
+
+![SmartYatra Destination Details](./screenshots/destination-details.png)
+
+### Dashboard
+
+![SmartYatra Dashboard](./screenshots/dashboard.png)
