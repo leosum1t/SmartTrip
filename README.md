@@ -107,7 +107,7 @@ GitHub: https://github.com/leosum1t
 
 ### Destination Details
 
-![SmartYatra Destination Details](./screenshots/destination-details.png)
+![SmartYatra Destination Details](./screenshots/destinationdetails.png)
 
 ### Dashboard
 
